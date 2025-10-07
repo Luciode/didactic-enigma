@@ -1,412 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>us.two() — Your Cozy Couple Hub</title>
-  <meta name="description" content="Our cozy, modern homebase for fun, memories, plans, and studying—built for two." />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="us.two() — Your Cozy Couple Hub" />
-  <meta property="og:description" content="Spin, watch, plan, save memories—and study smarter together." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'><rect width='100%' height='100%' fill='%230A1530'/><circle cx='200' cy='150' r='8' fill='%2319A974'/><circle cx='980' cy='420' r='6' fill='%23CFFAEA'/><text x='50' y='330' fill='%23CFFAEA' font-size='72' font-family='Inter, Arial'>us.two()</text></svg>"/>
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="us.two() — Your Cozy Couple Hub" />
-  <meta name="twitter:description" content="Spin, watch, plan, save memories—and study smarter together." />
-
-  <!-- Favicon placeholder -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%230A1530%22/><circle cx=%2232%22 cy=%2232%22 r=%2212%22 fill=%22%2319A974%22/></svg>">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>us.two() — Hub</title>
+  <meta name="description" content="A cozy, modern homebase for fun, memories, plans, and studying—built for two." />
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            navy: '#0A1530',
-            emerald: '#19A974',
-            mint: '#CFFAEA',
-            off: '#F7F9FB'
-          },
-          boxShadow: {
-            soft: '0 10px 30px rgba(0,0,0,.15)',
-          },
-          borderRadius: {
-            '2xl': '1.25rem'
-          },
+          colors: { navy:'#0A1530', emerald:'#19A974', mint:'#CFFAEA', off:'#F7F9FB' },
+          borderRadius: { '2xl':'1.25rem' },
+          boxShadow: { soft:'0 10px 30px rgba(0,0,0,.15)' },
           keyframes: {
-            gradientShift: {
-              '0%': { backgroundPosition: '0% 50%' },
-              '50%': { backgroundPosition: '100% 50%' },
-              '100%': { backgroundPosition: '0% 50%' },
-            },
-            floaty: {
-              '0%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-6px)' },
-              '100%': { transform: 'translateY(0)' },
-            }
+            blob: { '0%,100%':{transform:'translate(0,0) scale(1)'}, '50%':{transform:'translate(10px,-8px) scale(1.05)'} },
+            fadeUp: { '0%':{opacity:0,transform:'translateY(8px)'}, '100%':{opacity:1,transform:'translateY(0)'} }
           },
-          animation: {
-            gradientShift: 'gradientShift 12s ease infinite',
-            floaty: 'floaty 6s ease-in-out infinite',
-          }
+          animation: { blob:'blob 12s ease-in-out infinite', fadeUp:'fadeUp .5s ease both' }
         }
       }
     }
   </script>
 
   <style>
-    :root {
-      --navy: #0A1530;
-      --emerald: #19A974;
-      --mint: #CFFAEA;
-      --off: #F7F9FB;
-    }
+    :root { --navy:#0A1530; --emerald:#19A974; --mint:#CFFAEA; --off:#F7F9FB; }
     html { scroll-behavior: smooth; }
-    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; background: var(--off); color: #0B1220; }
-    .display { font-family: 'Baloo 2', 'Poppins', system-ui, sans-serif; letter-spacing: .2px; }
-    .glass {
-      background: rgba(255,255,255,.08);
-      backdrop-filter: saturate(140%) blur(10px);
-      -webkit-backdrop-filter: saturate(140%) blur(10px);
-      border: 1px solid rgba(255,255,255,.22);
-    }
-    .focus-ring:focus-visible { outline: 3px solid var(--emerald); outline-offset: 2px; border-radius: .75rem; }
-    @media (prefers-reduced-motion: reduce) {
-      * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
-    }
-    .reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.show { opacity: 1; transform: translateY(0); }
-    /* Wheel */
-    .wheel {
-      transition: transform 4s cubic-bezier(.22,.61,.36,1);
-      background: conic-gradient(from 0deg, var(--mint), #e7fff8, var(--emerald), #b8fbeb, var(--mint));
-      border: 6px solid rgba(255,255,255,.5);
-    }
-    /* Confetti canvas overlays entire page */
-    #confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; background: var(--off); color:#0B1220; }
+    .display { font-family:"Baloo 2","Poppins",system-ui,sans-serif; letter-spacing:.2px; }
+    .glass { background: rgba(255,255,255,.6); backdrop-filter:saturate(140%) blur(10px); border:1px solid rgba(255,255,255,.35); }
+    .focus-ring:focus-visible { outline:3px solid var(--emerald); outline-offset:2px; border-radius:.75rem; }
+    @media (prefers-reduced-motion: reduce) { *{animation:none!important; transition:none!important} }
+    .tab-btn[aria-selected="true"] { background:linear-gradient(180deg,#fff, #f3fffb); box-shadow:inset 0 0 0 1px rgba(0,0,0,.06); }
   </style>
 </head>
-<body class="min-h-screen selection:bg-emerald/20">
+<body class="min-h-screen">
 
-  <!-- Confetti -->
-  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+  <!-- background blobs -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-emerald/20 blur-3xl animate-blob"></div>
+    <div class="absolute -bottom-16 -right-16 w-[22rem] h-[22rem] rounded-full bg-navy/20 blur-3xl animate-blob" style="animation-delay: -6s;"></div>
+  </div>
 
-  <!-- Sticky Nav -->
-  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-white/40">
-    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <a href="#home" class="display text-xl font-bold text-navy">us.two()<span class="sr-only">Home</span></a>
-      <ul class="hidden md:flex items-center gap-6 text-sm">
-        <li><a class="hover:text-emerald focus-ring" href="#home">Home</a></li>
-        <li><a class="hover:text-emerald focus-ring" href="#spin-wheels">Spin Wheels</a></li>
-        <li><a class="hover:text-emerald focus-ring" href="#watchlist">Watch List</a></li>
-        <li><a class="hover:text-emerald focus-ring" href="#todo">To-Do</a></li>
-        <li><a class="hover:text-emerald focus-ring" href="#memories">Memories</a></li>
-        <li><a class="hover:text-emerald focus-ring" href="#study">Study</a></li>
-      </ul>
-      <a href="#study" class="md:hidden inline-flex items-center px-3 py-1.5 rounded-xl bg-emerald text-white text-sm hover:scale-[1.02] hover:shadow-soft transition focus-ring">Open Practice</a>
-    </nav>
+  <!-- Topbar -->
+  <header class="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-white/50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-2xl grid place-items-center bg-emerald/20 text-emerald">💚</div>
+        <h1 class="display text-xl font-bold text-navy">us.two()</h1>
+      </div>
+
+      <div class="hidden md:flex items-center gap-2">
+        <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="home">Home</button>
+        <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="wheels">Spin Wheels</button>
+        <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="watch">Watch List</button>
+        <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="todo">To-Do</button>
+        <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="mem">Memories</button>
+        <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="study">Study</button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" class="px-3 py-1.5 rounded-xl border bg-white text-sm focus-ring">Theme</button>
+        <button id="exportAll" class="px-3 py-1.5 rounded-xl border bg-white text-sm focus-ring">Export</button>
+        <label class="px-3 py-1.5 rounded-xl border bg-white text-sm focus-ring cursor-pointer">
+          Import <input id="importAll" type="file" accept="application/json" class="hidden">
+        </label>
+      </div>
+    </div>
   </header>
 
-  <!-- Hero -->
-  <section id="home" class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_10%,rgba(25,169,116,.25),transparent),radial-gradient(800px_400px_at_10%_20%,rgba(12,27,61,.6),transparent)]"></div>
-    <div class="relative">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
-        <!-- Animated gradient banner -->
-        <div class="mx-auto mb-8 w-full max-w-3xl rounded-2xl p-1 bg-gradient-to-r from-navy via-emerald to-navy bg-[length:300%_100%] animate-gradientShift">
-          <div class="glass rounded-2xl p-8 lg:p-10">
-            <h1 class="display text-4xl md:text-5xl font-extrabold text-navy">Your Cozy Couple Hub</h1>
-            <p class="mt-3 text-base md:text-lg text-slate-700">Spin, watch, plan, save memories—and study smarter together.</p>
-            <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a href="#study" class="px-5 py-3 rounded-2xl bg-emerald text-white font-semibold hover:scale-[1.02] hover:shadow-soft transition focus-ring">Open Practice</a>
-              <a href="#spin-wheels" class="px-5 py-3 rounded-2xl bg-white text-navy font-semibold border border-black/10 hover:scale-[1.02] hover:shadow-soft transition focus-ring">Spin a Wheel</a>
-            </div>
-            <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-700">
-              <li>• One place for fun, plans, and growth</li>
-              <li>• Cute, clean, modern UI (built for two)</li>
-              <li>• Study drills from your own notes</li>
-              <li>• Save clips/screenshots to revisit</li>
-              <li class="sm:col-span-2">• Simple lists you’ll actually use</li>
-            </ul>
+  <!-- Mobile tabs -->
+  <nav class="md:hidden sticky top-16 z-30 bg-white/80 backdrop-blur border-b border-white/50">
+    <div class="mx-auto max-w-7xl px-4 py-2 flex gap-2 overflow-x-auto">
+      <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="home">Home</button>
+      <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="wheels">Wheels</button>
+      <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="watch">Watch</button>
+      <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="todo">To-Do</button>
+      <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="mem">Memories</button>
+      <button class="tab-btn px-3 py-1.5 rounded-xl text-sm focus-ring" data-tab="study">Study</button>
+    </div>
+  </nav>
+
+  <!-- App container -->
+  <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 grid gap-6">
+    <!-- HOME -->
+    <section id="tab-home" class="animate-fadeUp">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="glass rounded-2xl p-5 shadow-soft">
+          <h2 class="display text-2xl text-navy">Your Cozy Couple Hub</h2>
+          <p class="mt-1 text-slate-700">Spin, watch, plan, save memories—and study smarter together.</p>
+          <ul class="mt-3 text-sm text-slate-700">
+            <li>• One place for fun, plans, and growth</li>
+            <li>• Cute, clean, modern UI (built for two)</li>
+            <li>• Study drills from your own notes</li>
+            <li>• Save clips/screenshots to revisit</li>
+            <li>• Simple lists you’ll actually use</li>
+          </ul>
+          <div class="mt-4 flex gap-2">
+            <button class="go-tab px-4 py-2 rounded-2xl bg-emerald text-white font-semibold focus-ring" data-go="study">Open Practice</button>
+            <button class="go-tab px-4 py-2 rounded-2xl border bg-white font-semibold focus-ring" data-go="wheels">Spin a Wheel</button>
           </div>
         </div>
 
-        <!-- Sparkles / abstract waves -->
-        <svg aria-hidden="true" class="mx-auto animate-floaty" width="420" height="120" viewBox="0 0 420 120" fill="none">
-          <path d="M10 80 C 110 10, 210 150, 310 60 S 410 80, 420 40" stroke="#19A974" stroke-opacity=".5" stroke-width="6" fill="none"/>
-          <circle cx="60" cy="30" r="3" fill="#CFFAEA" />
-          <circle cx="160" cy="20" r="2" fill="#19A974" />
-          <circle cx="360" cy="50" r="3" fill="#CFFAEA" />
-        </svg>
-
-        <p class="reveal mt-8 max-w-3xl mx-auto text-slate-600">
-          We wanted a single, cute place where we can spin wheels to pick a movie or game, track our watch list,
-          keep a shared to-do, save our favorite memories, and study together. It’s simple, modern, and made just for us.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="py-16 lg:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="display text-3xl font-bold text-navy text-center mb-10">Features</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Spin Wheels -->
-        <article class="glass rounded-2xl p-6 hover:shadow-soft hover:scale-[1.02] transition reveal">
-          <div class="flex items-center gap-3 mb-3">
-            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="#19A974" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="3" fill="#19A974"/></svg>
-            <h3 class="font-semibold text-lg">Spin Wheels</h3>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-semibold">Quick Add — To-Do</h3>
+          <div class="mt-2 flex gap-2">
+            <input id="qTodo" class="border rounded-xl px-3 py-2 flex-1 focus-ring" placeholder="New task…" />
+            <button id="qTodoAdd" class="px-3 py-2 rounded-xl bg-emerald text-white focus-ring">Add</button>
           </div>
-          <p class="text-sm text-slate-700">Add entries (e.g., Games, Movies) and spin to decide—no more indecision.</p>
-        </article>
+        </div>
 
-        <!-- Watch List -->
-        <article class="glass rounded-2xl p-6 hover:shadow-soft hover:scale-[1.02] transition reveal">
-          <div class="flex items-center gap-3 mb-3">
-            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z" fill="none" stroke="#19A974" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#19A974"/></svg>
-            <h3 class="font-semibold text-lg">Watch List</h3>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-semibold">Quick Add — Watch</h3>
+          <div class="mt-2 grid grid-cols-3 gap-2">
+            <input id="qWatchTitle" class="border rounded-xl px-3 py-2 col-span-2 focus-ring" placeholder="Title" />
+            <select id="qWatchType" class="border rounded-xl px-3 py-2 focus-ring"><option>Movie</option><option>Show</option></select>
+            <input id="qWatchPlatform" class="border rounded-xl px-3 py-2 col-span-2 focus-ring" placeholder="Platform" />
+            <button id="qWatchAdd" class="px-3 py-2 rounded-xl bg-emerald text-white focus-ring">Add</button>
           </div>
-          <p class="text-sm text-slate-700">Track movies/shows to watch next, mark finished, and leave tiny notes.</p>
-        </article>
-
-        <!-- To-Do -->
-        <article class="glass rounded-2xl p-6 hover:shadow-soft hover:scale-[1.02] transition reveal">
-          <div class="flex items-center gap-3 mb-3">
-            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h12M4 12h12M4 18h8" stroke="#19A974" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-            <h3 class="font-semibold text-lg">To-Do List</h3>
-          </div>
-          <p class="text-sm text-slate-700">Quick shared tasks with priority and due dates.</p>
-        </article>
-
-        <!-- Memories -->
-        <article class="glass rounded-2xl p-6 hover:shadow-soft hover:scale-[1.02] transition reveal">
-          <div class="flex items-center gap-3 mb-3">
-            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#19A974" stroke-width="2" fill="none"/><circle cx="9" cy="11" r="2" fill="#19A974"/></svg>
-            <h3 class="font-semibold text-lg">Memories</h3>
-          </div>
-          <p class="text-sm text-slate-700">Drop in clips and screenshots; browse by tags and dates.</p>
-        </article>
-
-        <!-- Study – Practice -->
-        <article class="glass rounded-2xl p-6 hover:shadow-soft hover:scale-[1.02] transition reveal md:col-span-2">
-          <div class="flex items-center gap-3 mb-3">
-            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12v14H4z" stroke="#19A974" stroke-width="2" fill="none"/><path d="M9 9h6M9 13h6" stroke="#19A974" stroke-width="2"/></svg>
-            <h3 class="font-semibold text-lg">Study — Practice</h3>
-          </div>
-          <p class="text-sm text-slate-700">Paste notes → auto-generate flashcards, multiple choice, or written responses. Sequential Q&amp;A (no long scroll), instant feedback with explanations.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Steps -->
-  <section class="py-12">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <h2 class="display text-3xl font-bold text-navy text-center mb-8">How it works</h2>
-      <ol class="space-y-4">
-        <li class="glass rounded-2xl p-5 reveal"><span class="font-semibold">Step 1:</span> Pick a section—Spin, Watch List, To-Do, Memories, or Study.</li>
-        <li class="glass rounded-2xl p-5 reveal"><span class="font-semibold">Step 2:</span> Add your stuff (entries, items, clips, or notes).</li>
-        <li class="glass rounded-2xl p-5 reveal"><span class="font-semibold">Step 3:</span> Use Practice to study your notes with flashcards, MCQs, or written answers—one question at a time with helpful explanations.</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="py-12">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <h2 class="display text-3xl font-bold text-navy text-center mb-8">Testimonials</h2>
-      <div class="relative glass rounded-2xl p-6 overflow-hidden">
-        <div id="testiTrack" class="flex gap-8 will-change-transform">
-          <blockquote class="min-w-full text-center">
-            <p class="text-lg">“No more ‘what should we watch?’ We just spin it.”</p>
-            <footer class="mt-2 text-sm text-slate-600">— Ray</footer>
-          </blockquote>
-          <blockquote class="min-w-full text-center">
-            <p class="text-lg">“The Practice drills feel like a study game—super motivating.”</p>
-            <footer class="mt-2 text-sm text-slate-600">— A.</footer>
-          </blockquote>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Spin Wheels -->
-  <section id="spin-wheels" class="py-16 lg:py-20 bg-white/60 border-y">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between gap-4 mb-6">
-        <h2 class="display text-3xl font-bold text-navy">Spin Wheels</h2>
-        <div class="flex items-center gap-2">
-          <button id="saveWheelPreset" class="px-4 py-2 rounded-xl border bg-white hover:shadow-soft hover:scale-[1.02] transition focus-ring text-sm">Save Preset</button>
-          <button id="loadWheelPreset" class="px-4 py-2 rounded-xl border bg-white hover:shadow-soft hover:scale-[1.02] transition focus-ring text-sm">Load Preset</button>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Wheel Canvas + controls -->
+    <!-- WHEELS -->
+    <section id="tab-wheels" class="hidden animate-fadeUp">
+      <div class="grid lg:grid-cols-2 gap-6">
         <div class="glass rounded-2xl p-6">
-          <div class="flex items-center gap-3 mb-4">
-            <label for="wheelSelect" class="font-semibold">Wheel:</label>
-            <select id="wheelSelect" class="focus-ring border rounded-xl px-3 py-2">
-              <option>Games</option>
-              <option>Movies</option>
+          <div class="flex items-center gap-2 mb-3">
+            <h2 class="display text-2xl text-navy">Spin Wheels ✨</h2>
+            <span class="text-xs px-2 py-1 rounded-full border bg-white">Games & Movies by default</span>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <label class="text-sm">Wheel:</label>
+            <select id="wheelSelect" class="border rounded-xl px-3 py-2 focus-ring">
+              <option>Games</option><option>Movies</option>
             </select>
-            <button id="addWheel" class="px-3 py-2 rounded-xl border bg-white hover:shadow-soft transition focus-ring text-sm">+ Add Wheel</button>
+            <button id="addWheel" class="px-3 py-2 rounded-xl border bg-white text-sm focus-ring">+ Add</button>
+            <button id="saveWheelPreset" class="px-3 py-2 rounded-xl border bg-white text-sm focus-ring">Save</button>
+            <button id="loadWheelPreset" class="px-3 py-2 rounded-xl border bg-white text-sm focus-ring">Load</button>
           </div>
 
           <div class="relative mx-auto w-72 h-72 md:w-80 md:h-80">
-            <div id="wheel" class="wheel rounded-full w-full h-full"></div>
+            <div id="wheel" class="rounded-full w-full h-full border-[6px] border-white shadow-soft" style="background:conic-gradient(from 0deg, var(--mint), #e7fff8, var(--emerald), #b8fbeb, var(--mint)); transition:transform 4s cubic-bezier(.22,.61,.36,1)"></div>
             <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[20px] border-b-emerald -mt-8" aria-hidden="true"></div>
+              <div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[20px] border-b-emerald -mt-8"></div>
             </div>
           </div>
 
-          <div class="mt-4 flex items-center gap-3">
-            <button id="spinBtn" class="px-5 py-2 rounded-2xl bg-emerald text-white font-semibold hover:scale-[1.02] hover:shadow-soft transition focus-ring">Spin</button>
-            <button id="pickAgain" class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring text-sm">Pick Again</button>
-            <button id="shuffleEntries" class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring text-sm">Shuffle</button>
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <button id="spinBtn" class="px-5 py-2 rounded-2xl bg-emerald text-white font-semibold hover:shadow-soft focus-ring">Spin</button>
+            <button id="pickAgain" class="px-4 py-2 rounded-2xl border bg-white focus-ring text-sm">Pick Again</button>
+            <button id="shuffleEntries" class="px-4 py-2 rounded-2xl border bg-white focus-ring text-sm">Shuffle</button>
           </div>
-
-          <p id="wheelResult" class="mt-4 text-center text-lg font-semibold" aria-live="polite"></p>
+          <p id="wheelResult" class="mt-3 text-lg font-semibold" aria-live="polite"></p>
         </div>
 
-        <!-- Entries editor -->
         <div class="glass rounded-2xl p-6">
-          <h3 class="font-semibold mb-3">Entries</h3>
+          <h3 class="font-semibold mb-2">Entries</h3>
           <div class="flex gap-2 mb-3">
-            <input id="entryInput" type="text" class="flex-1 border rounded-xl px-3 py-2 focus-ring" placeholder="Add entry (e.g., Mario Kart)" />
-            <button id="addEntry" class="px-4 py-2 rounded-xl border bg-white hover:shadow-soft transition focus-ring">Add</button>
+            <input id="entryInput" class="border rounded-xl px-3 py-2 flex-1 focus-ring" placeholder="Add entry…" />
+            <button id="addEntry" class="px-4 py-2 rounded-xl border bg-white focus-ring">Add</button>
           </div>
           <ul id="entriesList" class="space-y-2 text-sm"></ul>
         </div>
       </div>
-    </div>
-  </section>
+      <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none -z-10"></canvas>
+    </section>
 
-  <!-- Watch List -->
-  <section id="watchlist" class="py-16 lg:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between gap-4 mb-6">
-        <h2 class="display text-3xl font-bold text-navy">Watch List</h2>
-        <div class="flex gap-2">
-          <select id="filterPlatform" class="border rounded-xl px-3 py-2 text-sm focus-ring">
-            <option value="">All Platforms</option>
-            <option>Netflix</option><option>Prime</option><option>Hulu</option><option>Disney+</option><option>Max</option><option>Crunchyroll</option>
-          </select>
-          <select id="filterStatus" class="border rounded-xl px-3 py-2 text-sm focus-ring">
-            <option value="">All Status</option>
-            <option>To Watch</option><option>Watching</option><option>Finished</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="glass rounded-2xl p-6 mb-6">
-        <div class="grid md:grid-cols-5 gap-3">
-          <input id="wlTitle" class="border rounded-xl px-3 py-2 focus-ring md:col-span-2" placeholder="Title" />
-          <select id="wlType" class="border rounded-xl px-3 py-2 focus-ring">
-            <option>Movie</option><option>Show</option>
-          </select>
-          <input id="wlPlatform" class="border rounded-xl px-3 py-2 focus-ring" placeholder="Platform (e.g., Netflix)" />
-          <select id="wlStatus" class="border rounded-xl px-3 py-2 focus-ring">
-            <option>To Watch</option><option>Watching</option><option>Finished</option>
-          </select>
-          <input id="wlNotes" class="border rounded-xl px-3 py-2 focus-ring md:col-span-5" placeholder="Notes (optional)" />
-          <button id="wlAdd" class="px-4 py-2 rounded-2xl bg-emerald text-white hover:scale-[1.02] hover:shadow-soft transition focus-ring md:col-span-1">Add</button>
-          <button id="wlExport" class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring md:col-span-1">Export</button>
-          <label class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring md:col-span-1 text-center cursor-pointer">
+    <!-- WATCH LIST -->
+    <section id="tab-watch" class="hidden animate-fadeUp">
+      <div class="glass rounded-2xl p-6 mb-4">
+        <h2 class="display text-2xl text-navy">Watch List 🍿</h2>
+        <div class="grid md:grid-cols-5 gap-2 mt-3">
+          <input id="wlTitle" class="border rounded-xl px-3 py-2 md:col-span-2 focus-ring" placeholder="Title" />
+          <select id="wlType" class="border rounded-xl px-3 py-2 focus-ring"><option>Movie</option><option>Show</option></select>
+          <input id="wlPlatform" class="border rounded-xl px-3 py-2 focus-ring" placeholder="Platform" />
+          <select id="wlStatus" class="border rounded-xl px-3 py-2 focus-ring"><option>To Watch</option><option>Watching</option><option>Finished</option></select>
+          <input id="wlNotes" class="border rounded-xl px-3 py-2 md:col-span-5 focus-ring" placeholder="Notes (optional)" />
+          <button id="wlAdd" class="px-4 py-2 rounded-2xl bg-emerald text-white focus-ring">Add</button>
+          <button id="wlExport" class="px-4 py-2 rounded-2xl border bg-white focus-ring">Export</button>
+          <label class="px-4 py-2 rounded-2xl border bg-white focus-ring text-center cursor-pointer">
             Import <input id="wlImport" type="file" accept="application/json" class="hidden" />
           </label>
         </div>
+        <div class="mt-3 flex gap-2">
+          <select id="filterPlatform" class="border rounded-xl px-3 py-2 text-sm focus-ring">
+            <option value="">All Platforms</option><option>Netflix</option><option>Prime</option><option>Hulu</option><option>Disney+</option><option>Max</option><option>Crunchyroll</option>
+          </select>
+          <select id="filterStatus" class="border rounded-xl px-3 py-2 text-sm focus-ring">
+            <option value="">All Status</option><option>To Watch</option><option>Watching</option><option>Finished</option>
+          </select>
+        </div>
       </div>
-
       <div id="watchList" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- To-Do -->
-  <section id="todo" class="py-16 lg:py-20 bg-white/60 border-y">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="display text-3xl font-bold text-navy mb-6">To-Do List</h2>
-
-      <div class="glass rounded-2xl p-6 mb-6">
-        <div class="grid md:grid-cols-6 gap-3">
-          <input id="tdText" class="border rounded-xl px-3 py-2 focus-ring md:col-span-3" placeholder="Task" />
-          <select id="tdPriority" class="border rounded-xl px-3 py-2 focus-ring">
-            <option>Low</option><option>Med</option><option>High</option>
-          </select>
+    <!-- TO-DO -->
+    <section id="tab-todo" class="hidden animate-fadeUp">
+      <div class="glass rounded-2xl p-6 mb-4">
+        <h2 class="display text-2xl text-navy">To-Do ✅</h2>
+        <div class="grid md:grid-cols-6 gap-2 mt-3">
+          <input id="tdText" class="border rounded-xl px-3 py-2 md:col-span-3 focus-ring" placeholder="Task" />
+          <select id="tdPriority" class="border rounded-xl px-3 py-2 focus-ring"><option>Low</option><option>Med</option><option>High</option></select>
           <input id="tdDue" type="date" class="border rounded-xl px-3 py-2 focus-ring" />
-          <button id="tdAdd" class="px-4 py-2 rounded-2xl bg-emerald text-white hover:scale-[1.02] hover:shadow-soft transition focus-ring">Add</button>
-
+          <button id="tdAdd" class="px-4 py-2 rounded-2xl bg-emerald text-white focus-ring">Add</button>
           <select id="tdFilter" class="border rounded-xl px-3 py-2 focus-ring md:col-span-2">
-            <option value="">All</option>
-            <option value="open">Open</option>
-            <option value="done">Completed</option>
-            <option value="High">High priority</option>
-            <option value="Med">Med priority</option>
-            <option value="Low">Low priority</option>
+            <option value="">All</option><option value="open">Open</option><option value="done">Completed</option><option value="High">High priority</option><option value="Med">Med priority</option><option value="Low">Low priority</option>
           </select>
         </div>
       </div>
-
       <ul id="todoList" class="space-y-3"></ul>
-    </div>
-  </section>
+    </section>
 
-  <!-- Memories -->
-  <section id="memories" class="py-16 lg:py-20">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between gap-4 mb-6">
-        <h2 class="display text-3xl font-bold text-navy">Memories</h2>
-        <div class="flex gap-2">
-          <input id="memTagFilter" class="border rounded-xl px-3 py-2 focus-ring text-sm" placeholder="Filter by tag" />
-          <input id="memDateFilter" type="date" class="border rounded-xl px-3 py-2 focus-ring text-sm" />
-        </div>
-      </div>
-
-      <div class="glass rounded-2xl p-6 mb-6">
-        <div class="grid md:grid-cols-5 gap-3">
-          <input id="memTitle" class="border rounded-xl px-3 py-2 focus-ring md:col-span-2" placeholder="Title" />
-          <input id="memTags" class="border rounded-xl px-3 py-2 focus-ring md:col-span-2" placeholder="Tags (comma)" />
-          <label class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring text-center cursor-pointer">
+    <!-- MEMORIES -->
+    <section id="tab-mem" class="hidden animate-fadeUp">
+      <div class="glass rounded-2xl p-6 mb-4">
+        <h2 class="display text-2xl text-navy">Memories 📸</h2>
+        <div class="grid md:grid-cols-5 gap-2 mt-3">
+          <input id="memTitle" class="border rounded-xl px-3 py-2 md:col-span-2 focus-ring" placeholder="Title" />
+          <input id="memTags" class="border rounded-xl px-3 py-2 md:col-span-2 focus-ring" placeholder="Tags (comma)" />
+          <label class="px-4 py-2 rounded-2xl border bg-white text-center cursor-pointer focus-ring">
             Choose File <input id="memFile" type="file" accept="image/*,video/*" class="hidden" />
           </label>
-          <button id="memAdd" class="px-4 py-2 rounded-2xl bg-emerald text-white hover:scale-[1.02] hover:shadow-soft transition focus-ring">Add</button>
-          <button id="memExport" class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring">Export</button>
-          <label class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring text-center cursor-pointer">
+          <button id="memAdd" class="px-4 py-2 rounded-2xl bg-emerald text-white focus-ring">Add</button>
+          <button id="memExport" class="px-4 py-2 rounded-2xl border bg-white focus-ring">Export</button>
+          <label class="px-4 py-2 rounded-2xl border bg-white text-center cursor-pointer focus-ring">
             Import <input id="memImport" type="file" accept="application/json" class="hidden" />
           </label>
         </div>
         <p class="mt-2 text-xs text-slate-600">Stored locally; you can export a backup JSON.</p>
+        <div class="mt-3 flex gap-2">
+          <input id="memTagFilter" class="border rounded-xl px-3 py-2 text-sm focus-ring" placeholder="Filter by tag" />
+          <input id="memDateFilter" type="date" class="border rounded-xl px-3 py-2 text-sm focus-ring" />
+        </div>
       </div>
-
       <div id="memGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
 
-      <!-- Modal viewer -->
       <dialog id="memModal" class="rounded-2xl p-0 w-11/12 md:w-3/4 lg:w-1/2">
-        <button id="memClose" class="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-white border hover:shadow-soft">Close</button>
+        <button id="memClose" class="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-white border">Close</button>
         <div id="memModalContent" class="p-4"></div>
       </dialog>
-    </div>
-  </section>
+    </section>
 
-  <!-- Study -->
-  <section id="study" class="py-16 lg:py-20 bg-white/60 border-y">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 class="display text-3xl font-bold text-navy mb-6">Study</h2>
-
-      <!-- Practice bubble -->
-      <div class="glass rounded-2xl p-6 mb-6">
+    <!-- STUDY -->
+    <section id="tab-study" class="hidden animate-fadeUp">
+      <div class="glass rounded-2xl p-6">
+        <div class="flex items-center gap-2 mb-2">
+          <h2 class="display text-2xl text-navy">Study — Practice 📚</h2>
+          <span class="text-xs px-2 py-1 rounded-full border bg-white">One card at a time</span>
+        </div>
         <div class="grid lg:grid-cols-3 gap-4">
           <textarea id="notesInput" class="border rounded-2xl p-3 min-h-[140px] focus-ring lg:col-span-2" placeholder="Paste notes here..."></textarea>
-          <div class="space-y-3">
+          <div class="space-y-2">
             <select id="modeSelect" class="border rounded-xl px-3 py-2 w-full focus-ring">
               <option value="flash">Flashcards</option>
               <option value="mcq">Multiple Choice</option>
@@ -414,99 +264,46 @@
             </select>
             <input id="setName" class="border rounded-xl px-3 py-2 w-full focus-ring" placeholder="Save set name (optional)" />
             <div class="flex gap-2">
-              <button id="genPractice" class="px-4 py-2 rounded-2xl bg-emerald text-white hover:scale-[1.02] hover:shadow-soft transition focus-ring">Open Practice</button>
-              <button id="saveSet" class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring">Save</button>
+              <button id="genPractice" class="px-4 py-2 rounded-2xl bg-emerald text-white focus-ring">Open Practice</button>
+              <button id="saveSet" class="px-4 py-2 rounded-2xl border bg-white focus-ring">Save</button>
             </div>
             <div class="flex gap-2">
-              <button id="exportSet" class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring w-full">Export</button>
-              <label class="px-4 py-2 rounded-2xl border bg-white hover:shadow-soft transition focus-ring w-full text-center cursor-pointer">
+              <button id="exportSet" class="px-4 py-2 rounded-2xl border bg-white focus-ring w-full">Export</button>
+              <label class="px-4 py-2 rounded-2xl border bg-white focus-ring w-full text-center cursor-pointer">
                 Import <input id="importSet" type="file" accept="application/json" class="hidden" />
               </label>
             </div>
           </div>
         </div>
-        <p class="mt-2 text-xs text-slate-600">Sequential Q&amp;A, instant feedback, explanations. Accessible &amp; keyboard friendly.</p>
-      </div>
 
-      <!-- Practice runner (one-at-a-time card) -->
-      <div id="practiceRunner" class="hidden glass rounded-2xl p-6">
-        <div class="flex items-center justify-between mb-4">
-          <div id="progress" class="text-sm">0 of 0</div>
-          <div class="flex items-center gap-2">
-            <button id="switchModeFlash" class="px-3 py-1.5 rounded-xl border bg-white text-xs">Flash</button>
-            <button id="switchModeMcq" class="px-3 py-1.5 rounded-xl border bg-white text-xs">MCQ</button>
-            <button id="switchModeWritten" class="px-3 py-1.5 rounded-xl border bg-white text-xs">Written</button>
+        <div id="practiceRunner" class="hidden glass rounded-2xl p-5 mt-4">
+          <div class="flex items-center justify-between mb-3">
+            <div id="progress" class="text-sm">0 of 0</div>
+            <div class="flex items-center gap-2">
+              <button id="switchModeFlash" class="px-3 py-1.5 rounded-xl border bg-white text-xs">Flash</button>
+              <button id="switchModeMcq" class="px-3 py-1.5 rounded-xl border bg-white text-xs">MCQ</button>
+              <button id="switchModeWritten" class="px-3 py-1.5 rounded-xl border bg-white text-xs">Written</button>
+            </div>
           </div>
+          <div id="qaCard" class="rounded-2xl border bg-white p-5"></div>
+          <div class="mt-4 flex items-center justify-between">
+            <button id="restartPractice" class="px-4 py-2 rounded-xl border bg-white">Restart</button>
+            <button id="nextBtn" class="px-4 py-2 rounded-xl bg-emerald text-white">Next</button>
+          </div>
+          <div id="feedback" class="sr-only" aria-live="polite"></div>
         </div>
-        <div id="qaCard" class="rounded-2xl border bg-white p-5">
-          <!-- injected -->
+
+        <div id="summaryPanel" class="hidden glass rounded-2xl p-5 mt-4">
+          <h3 class="font-semibold text-lg mb-2">Summary</h3>
+          <div id="summaryList" class="text-sm"></div>
+          <button id="retryIncorrect" class="mt-4 px-4 py-2 rounded-xl bg-emerald text-white">Retry incorrect only</button>
         </div>
-        <div class="mt-4 flex items-center justify-between">
-          <button id="restartPractice" class="px-4 py-2 rounded-xl border bg-white hover:shadow-soft">Restart</button>
-          <button id="nextBtn" class="px-4 py-2 rounded-xl bg-emerald text-white hover:shadow-soft">Next</button>
-        </div>
-        <div id="feedback" class="sr-only" aria-live="polite"></div>
       </div>
+    </section>
+  </main>
 
-      <!-- Summary -->
-      <div id="summaryPanel" class="hidden glass rounded-2xl p-6 mt-6">
-        <h3 class="font-semibold text-lg mb-2">Summary</h3>
-        <div id="summaryList" class="text-sm"></div>
-        <button id="retryIncorrect" class="mt-4 px-4 py-2 rounded-xl bg-emerald text-white hover:shadow-soft">Retry incorrect only</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section class="py-16 lg:py-20">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="display text-3xl font-bold text-navy mb-4">Pricing</h2>
-      <p class="glass rounded-2xl p-6">Free—just for us.</p>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="py-16 lg:py-20 bg-white/60 border-y">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <h2 class="display text-3xl font-bold text-navy mb-6 text-center">FAQ</h2>
-      <div class="grid md:grid-cols-3 gap-4">
-        <article class="glass rounded-2xl p-6">
-          <h3 class="font-semibold mb-1">Can we use it on our phones?</h3>
-          <p>Yes, fully responsive.</p>
-        </article>
-        <article class="glass rounded-2xl p-6">
-          <h3 class="font-semibold mb-1">Do we need accounts?</h3>
-          <p>No—use browser storage to start; optional export/import.</p>
-        </article>
-        <article class="glass rounded-2xl p-6">
-          <h3 class="font-semibold mb-1">Where do memories live?</h3>
-          <p>Stored locally; you can export a backup JSON.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact / Newsletter -->
-  <section class="py-16 lg:py-20">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="display text-3xl font-bold text-navy mb-4">Contact / Newsletter</h2>
-      <p class="mb-4">No newsletter—this is our private space. Add an email field only for ourselves as a “notes-to-inbox” shortcut if we want.</p>
-      <form id="emailNoteForm" class="glass rounded-2xl p-6 max-w-xl mx-auto">
-        <input id="emailField" type="email" class="w-full border rounded-xl px-3 py-2 focus-ring mb-3" placeholder="Our email (optional)" aria-label="Email for notes-to-inbox shortcut" />
-        <textarea id="emailNote" class="w-full border rounded-xl px-3 py-2 focus-ring mb-3" placeholder="Quick note to ourselves…"></textarea>
-        <button class="px-4 py-2 rounded-2xl bg-emerald text-white hover:shadow-soft" type="submit">Save locally</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-10 text-center text-sm text-slate-600">
-    <nav class="flex items-center justify-center gap-6">
-      <a href="mailto:" class="hover:text-emerald">Email</a>
-      <a href="#" class="hover:text-emerald">Privacy</a>
-      <a href="#" class="hover:text-emerald">Terms</a>
-    </nav>
-    <p class="mt-3">&copy; <span id="yr"></span> us.two()</p>
+  <footer class="py-8 text-center text-xs text-slate-600">
+    <p>&copy; <span id="yr"></span> us.two() • <a class="underline" href="mailto:">Email</a> • <a class="underline" href="#">Privacy</a> • <a class="underline" href="#">Terms</a></p>
   </footer>
 
   <script src="./script.js"></script>
