@@ -1,0 +1,27 @@
+:root {
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-brd: rgba(255,255,255,0.18);
+}
+
+/***** Reusable UI *****/
+.pill { @apply px-3 py-1.5 rounded-full border border-white/15 text-off/90 hover:bg-white/5 transition focus:outline-none focus:ring-2 focus:ring-emerald/60; }
+.btn { @apply px-4 py-2 rounded-2xl bg-emerald/20 border border-emerald/40 hover:bg-emerald/30 shadow-soft transition focus:outline-none focus:ring-2 focus:ring-emerald; }
+.input { @apply w-full px-3 py-2 rounded-2xl bg-white/5 border border-white/15 placeholder:opacity-60 focus:outline-none focus:ring-2 focus:ring-emerald; }
+
+.bubble { @apply w-full max-w-[420px] p-6 rounded-3xl shadow-soft border backdrop-blur text-off bg-[var(--glass-bg)] border-[var(--glass-brd)] transition will-change-transform relative; transform: translateY(0) scale(1); }
+.bubble:hover { transform: translateY(-2px) scale(1.02); }
+.bubble-title { @apply font-display text-2xl mt-3; }
+.bubble-desc { @apply text-off/70 mt-1; }
+
+.modal { @apply fixed inset-0 grid place-items-center bg-black/40; }
+.modal-panel { @apply w-[min(680px,92vw)] max-h-[86vh] overflow-auto rounded-3xl p-6 bg-[var(--glass-bg)] border border-[var(--glass-brd)] backdrop-blur; }
+
+/* Sparkle hover (respects reduced motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .bubble:hover::after { content: ""; position: absolute; inset: -2px; mask: radial-gradient(circle at 20% 20%, #fff 0 18%, transparent 19%), radial-gradient(circle at 80% 30%, #fff 0 12%, transparent 13%), radial-gradient(circle at 60% 80%, #fff 0 10%, transparent 11%); background: linear-gradient(90deg,#FFD8E5, #Cffaea); opacity:.25; filter: blur(6px); pointer-events:none; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bubble:hover { transform: none !important; }
+}

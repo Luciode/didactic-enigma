@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To‑Do — us.two()</title>
+  <meta name="description" content="A tiny shared task list with priorities and due dates." />
+  <link rel="icon" href="/assets/img/sparkle.svg" />
+  <meta property="og:title" content="To‑Do — us.two()" />
+  <meta property="og:description" content="Plan cozy days together." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#0A1530',emerald:'#19A974',mint:'#CFFAEA',off:'#F7F9FB',blush:'#FFD8E5'},fontFamily:{display:['\"Baloo 2\"','Poppins','sans-serif'],body:['Inter','sans-serif']}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body class="min-h-dvh bg-navy text-off font-body">
+  <header class="sticky top-0 z-40 backdrop-blur bg-navy/70 border-b border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a class="pill" href="/">← Home</a>
+      <nav aria-label="Primary"><ul class="flex gap-2"> 
+        <li><a class="pill" href="/study/">Study</a></li>
+        <li><a class="pill" href="/spin/">Spin</a></li>
+        <li><a class="pill" href="/watchlist/">Watch List</a></li>
+        <li><a class="pill" href="/memories/">Memories</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-4 py-8 grid gap-8">
+    <section class="p-4 rounded-3xl bg-white/5 border border-white/10">
+      <h1 class="font-display text-3xl">To‑Do</h1>
+      <form id="add" class="mt-4 grid sm:grid-cols-5 gap-2">
+        <input class="input sm:col-span-2" name="title" placeholder="Task" required>
+        <select class="input" name="prio"><option>Low</option><option>Med</option><option>High</option></select>
+        <input class="input" name="due" type="date">
+        <button class="btn sm:col-span-5">Add</button>
+      </form>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <select id="view" class="input w-auto"><option>All</option><option>Active</option><option>Done</option></select>
+      </div>
+    </section>
+
+    <ul id="list" class="grid gap-3"></ul>
+    <p id="empty" class="text-center text-off/60 hidden">Let’s plan our next cozy day ✨</p>
+  </main>
+
+  <script type="module" src="/assets/js/global.js"></script>
+  <script type="module" src="./todo.js"></script>
+</body>
+</html>

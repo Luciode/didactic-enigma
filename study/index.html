@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study — us.two()</title>
+  <meta name="description" content="Paste notes and practice via flashcards, MCQs, or written answers." />
+  <link rel="icon" href="/assets/img/heart.svg" />
+  <meta property="og:title" content="Study — us.two()" />
+  <meta property="og:description" content="Practice one question at a time. Private by default." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{navy:'#0A1530',emerald:'#19A974',mint:'#CFFAEA',off:'#F7F9FB',blush:'#FFD8E5'},fontFamily:{display:['\"Baloo 2\"','Poppins','sans-serif'],body:['Inter','sans-serif']}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body class="min-h-dvh bg-navy text-off font-body">
+  <header class="sticky top-0 z-40 backdrop-blur bg-navy/70 border-b border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a class="pill" href="/">← Home</a>
+      <nav aria-label="Primary"><ul class="flex gap-2"> 
+        <li><a class="pill" href="/spin/">Spin</a></li>
+        <li><a class="pill" href="/watchlist/">Watch List</a></li>
+        <li><a class="pill" href="/todo/">To-Do</a></li>
+        <li><a class="pill" href="/memories/">Memories</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-8 grid gap-8">
+    <div>
+      <h1 class="font-display text-3xl">Study — Practice</h1>
+      <p class="text-off/70">Paste notes → generate a practice set. One question at a time. Data never leaves your browser.</p>
+    </div>
+
+    <!-- Create Set -->
+    <section class="p-4 rounded-3xl bg-white/5 border border-white/10">
+      <div class="grid gap-3">
+        <label class="block">Set name
+          <input id="setName" class="input mt-1" placeholder="e.g., Biology Ch. 3" />
+        </label>
+        <label class="block">Notes
+          <textarea id="notes" class="input mt-1 h-40" placeholder="Paste your notes here. Use short lines like: Term — Definition"></textarea>
+        </label>
+        <div class="flex flex-wrap gap-3 items-end">
+          <label>Mode
+            <select id="mode" class="input mt-1">
+              <option value="flash">Flashcards</option>
+              <option value="mcq">Multiple Choice</option>
+              <option value="written">Written</option>
+            </select>
+          </label>
+          <button id="generate" class="btn">Generate</button>
+          <button id="exportSet" class="btn">Export</button>
+          <label class="btn cursor-pointer">Import <input id="importSet" type="file" accept="application/json" class="sr-only"/></label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practice Card -->
+    <section aria-live="polite" class="grid place-items-center">
+      <div id="card" class="w-full max-w-2xl p-6 rounded-3xl bg-[var(--glass-bg)] border border-[var(--glass-brd)] backdrop-blur shadow-soft min-h-48"></div>
+      <div id="progress" class="mt-4 text-off/70"></div>
+      <div class="mt-2 flex gap-2">
+        <button id="restart" class="btn">Restart</button>
+        <button id="retryWrong" class="btn">Retry Incorrect</button>
+      </div>
+    </section>
+
+    <!-- Saved Sets -->
+    <section class="p-4 rounded-3xl bg-white/5 border border-white/10">
+      <h2 class="font-display text-2xl">Saved Sets</h2>
+      <ul id="saved" class="mt-2 grid gap-2"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="/assets/js/global.js"></script>
+  <script type="module" src="./study.js"></script>
+</body>
+</html>
